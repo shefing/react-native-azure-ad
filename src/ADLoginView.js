@@ -13,6 +13,7 @@ export default class ADLoginView extends React.Component {
 
   props : {
     onSuccess? : ?Function,
+    renderError? : ?Function,
     needLogout? : bool,
     style : any,
     onURLChange : Function,
@@ -30,6 +31,7 @@ export default class ADLoginView extends React.Component {
     authority_host : loginUrl,
     tenant : 'common',
     onSuccess : () => {},
+    renderError: () => {},
     onPageRequest : null
   };
 
@@ -79,7 +81,7 @@ export default class ADLoginView extends React.Component {
   render() {
     // Fix visibility problem on Android webview
     let js = `document.getElementsByTagName('body')[0].style.height = '${Dimensions.get('window').height}px';`
-
+    let renderError = this.props.renderError || function () { }
     return (
         this.state.visible ? (<WebView
           ref="ADLoginView"
@@ -106,6 +108,7 @@ export default class ADLoginView extends React.Component {
           onShouldStartLoadWithRequest={(e) => {
             return true
           }}
+          renderError={() => renderError(this.refs.ADLoginView.reload)}
           startInLoadingState={false}
           injectedJavaScript={js}
           scalesPageToFit={true}/>) : null
