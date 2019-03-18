@@ -133,7 +133,7 @@ export default class ADLoginView extends React.Component {
       let result = `${authUrl}?response_type=code` +
              `&response_mode=query` +
              `&client_id=${context.getConfig().client_id}` +
-             (redirect ? `&redirect_url=${context.getConfig().redirect_uri}&nonce=rnad-${Date.now()}` : '') +
+             (redirect ? `&redirect_uri=${context.getConfig().redirect_uri}&nonce=rnad-${Date.now()}` : '') +
              (prompt ? `&prompt=${context.getConfig().prompt}` : '') +
              (userName ? `&login_hint=${userName}` : '')
              
